@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Api.Domain.Dtos.User;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
@@ -21,6 +23,7 @@ namespace Api.Application.Controllers
         }
 
         [HttpGet]
+        [Authorize("Bearer")]
         public async Task<ActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -39,6 +42,7 @@ namespace Api.Application.Controllers
         }
 
         [HttpGet]
+        [Authorize("Bearer")]
         [Route("{id}", Name = "GetWithId")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -49,7 +53,8 @@ namespace Api.Application.Controllers
 
             try
             {
-                return Ok(await _service.Get(id));
+                var result = await _service.Get(id);
+                return Ok(result);
             }
             catch (Exception e)
             {
@@ -59,7 +64,8 @@ namespace Api.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UserEntity user)
+        [Authorize("Bearer")]
+        public async Task<IActionResult> Post([FromBody] UserDtoCreate user)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +96,8 @@ namespace Api.Application.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UserEntity user)
+        [Authorize("Bearer")]
+        public async Task<ActionResult> Put([FromBody] UserDtoUpdate user)
         {
             if (!ModelState.IsValid)
             {

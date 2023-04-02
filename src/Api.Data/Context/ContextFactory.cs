@@ -12,7 +12,6 @@ namespace Api.Data.Context
             var optionsBuilder = new DbContextOptionsBuilder<MyContext>();
             optionsBuilder.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql"));
             return new MyContext(optionsBuilder.Options);
-            // throw new System.NotImplementedException();
         }
     }
 }

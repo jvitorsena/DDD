@@ -17,6 +17,10 @@ namespace Api.Data.Maping
                 .HasMaxLength(60);
             builder.Property(u => u.Email)
                 .HasMaxLength(100);
+            // builder.HasIndex(u => u.CPF)
+            //     .IsUnique();
+            // builder.Property(u => u.CPF)
+            //     .HasMaxLength(50);
         }
     }
 }
