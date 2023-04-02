@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Api.Domain.Entities;
 using Api.Data.Maping;
+using Api.Domain.Dtos.User;
 
 namespace Api.Data.Context
 {
@@ -17,6 +18,15 @@ namespace Api.Data.Context
         {
             base.OnModelCreating(modelbuilder);
             modelbuilder.Entity<UserEntity>(new UserMap().Configure);
+            modelbuilder.Entity<UserEntity>().HasData(
+                new UserEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Administrador",
+                    Email = "email@email.com.br",
+                    CreateAt = DateTime.Now,
+                    updateAt = DateTime.Now
+                });
         }
     }
 }
