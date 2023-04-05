@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "application", "Api.Application\application.csproj", "{38700B88-3E06-424E-AFBD-CFBE45EAFF5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Api.Application\application.csproj", "{38700B88-3E06-424E-AFBD-CFBE45EAFF5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Api.Domain\Domain.csproj", "{B86B2F84-362E-408B-A4A0-E176DB4371B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crosscutting", "Api.CrossCutting\crosscutting.csproj", "{1A42A9C7-94B7-4C7A-AD81-E3AE04FD7223}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting", "Api.CrossCutting\crosscutting.csproj", "{1A42A9C7-94B7-4C7A-AD81-E3AE04FD7223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Api.Data\Data.csproj", "{654E518B-C2C2-4E5D-9B9A-391553F74AC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Api.Service\Service.csproj", "{47576A97-978A-44A5-8D7D-84B138473592}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Data.Test", "Api.Data.Test\Api.Data.Test.csproj", "{D5F47DC6-1BEF-4E86-BB1B-EF2B15F83B2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Service.Test", "Api.Service.Test\Api.Service.Test.csproj", "{871A0296-58F6-4941-A3A3-51F30A558EAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,5 +54,9 @@ Global
 		{D5F47DC6-1BEF-4E86-BB1B-EF2B15F83B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F47DC6-1BEF-4E86-BB1B-EF2B15F83B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F47DC6-1BEF-4E86-BB1B-EF2B15F83B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{871A0296-58F6-4941-A3A3-51F30A558EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{871A0296-58F6-4941-A3A3-51F30A558EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{871A0296-58F6-4941-A3A3-51F30A558EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{871A0296-58F6-4941-A3A3-51F30A558EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

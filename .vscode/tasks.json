@@ -35,7 +35,32 @@
                 "--project",
                 "${workspaceFolder}/src/Api.Application/application.csproj"
             ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Data.Testes",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/src/Api.Data.Test/Api.Data.Test.csproj"
+            ]
+        },
+        {
+            "label": "Service.Testes",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "--test-adapter-path",
+                "${workspaceFolder}/src/Api.Service.Test/Api.Service.Test.csproj"
+            ],
             "problemMatcher": "$msCompile"
+
         }
     ]
 }
