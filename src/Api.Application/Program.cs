@@ -14,7 +14,6 @@ using crosscutting.Mappings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
@@ -83,19 +82,19 @@ var config = new AutoMapper.MapperConfiguration(cfg =>
 });
 IMapper mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
-builder.Services.AddDbContext<MyContext>(
-    options => options.UseMySql("server=localhost;user=root;password=root_pwd;database=CSharpDDD", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql"))
-);
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddScoped<IUserRepository, UserImplementation>();
-builder.Services.AddTransient<ILoginService, LoginService>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+// builder.Services.AddDbContext<MyContext>(
+//     options => options.UseMySql("server=localhost;user=root;password=root_pwd;database=CSharpDDD", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql"))
+// );
+// builder.Services.AddTransient<IUserService, UserService>();
+// builder.Services.AddScoped<IUserRepository, UserImplementation>();
+// builder.Services.AddTransient<ILoginService, LoginService>();
+// builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddConfig(builder.Configuration).AddMyDependencyGroup();
 var signConfigurations = new SigningConfigurations();
 builder.Services.AddSingleton(signConfigurations);
 var tokenConfigurations = new TokenConfigurations();
 new ConfigureFromConfigurationOptions<TokenConfigurations>(AppSettings.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
 builder.Services.AddSingleton(tokenConfigurations);
-
 #endregion
 
 #region [JWT Configuration]
