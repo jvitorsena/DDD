@@ -5,7 +5,10 @@ using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Repository;
+using Api.Domain.Security;
 using Api.Service.Services;
+using AutoMapper;
+using crosscutting.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +20,8 @@ public static class MyConfigServiceCollectionExtensions
     public static IServiceCollection AddConfig(
          this IServiceCollection services, IConfiguration config)
     {
-        services.AddDbContext<MyContext>(options => options.UseMySql("server=localhost;user=root;password=root_pwd;database=CSharpDDD", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql")));
+        services.AddDbContext<MyContext>(options => options.UseMySql(config.GetConnectionString("MySQL"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql")));
+
         return services;
     }
 
@@ -28,6 +32,20 @@ public static class MyConfigServiceCollectionExtensions
         services.AddTransient<ILoginService, LoginService>();
         services.AddScoped<IUserRepository, UserImplementation>();
         services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+
+        #region [AutoMapper]
+        var config = new AutoMapper.MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile(new DtoToModelProfile());
+            cfg.AddProfile(new EntityToDtoProfile());
+            cfg.AddProfile(new ModelToEntityProfile());
+        });
+        IMapper mapper = config.CreateMapper();
+        services.AddSingleton(mapper);
+        #endregion
+
+        var signConfigurations = new SigningConfigurations();
+        services.AddSingleton(signConfigurations);
 
         return services;
     }

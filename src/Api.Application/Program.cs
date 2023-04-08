@@ -1,4 +1,5 @@
 using System.Data;
+using Api.Application.BackgroundServices;
 using Api.Data.Context;
 using Api.Data.Implementations;
 using Api.Data.Repository;
@@ -74,30 +75,20 @@ IConfiguration AppSettings = new ConfigurationBuilder()
 
 #region [Dependency Injection]
 
-var config = new AutoMapper.MapperConfiguration(cfg =>
-{
-    cfg.AddProfile(new DtoToModelProfile());
-    cfg.AddProfile(new EntityToDtoProfile());
-    cfg.AddProfile(new ModelToEntityProfile());
-});
-IMapper mapper = config.CreateMapper();
-builder.Services.AddSingleton(mapper);
-// builder.Services.AddDbContext<MyContext>(
-//     options => options.UseMySql("server=localhost;user=root;password=root_pwd;database=CSharpDDD", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql"))
-// );
-// builder.Services.AddTransient<IUserService, UserService>();
-// builder.Services.AddScoped<IUserRepository, UserImplementation>();
-// builder.Services.AddTransient<ILoginService, LoginService>();
-// builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddHostedService<ImplementBackgroundService>();
 builder.Services.AddConfig(builder.Configuration).AddMyDependencyGroup();
-var signConfigurations = new SigningConfigurations();
-builder.Services.AddSingleton(signConfigurations);
-var tokenConfigurations = new TokenConfigurations();
-new ConfigureFromConfigurationOptions<TokenConfigurations>(AppSettings.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
-builder.Services.AddSingleton(tokenConfigurations);
+
 #endregion
 
 #region [JWT Configuration]
+
+var tokenConfigurations = new TokenConfigurations();
+// new ConfigureFromConfigurationOptions<TokenConfigurations>(AppSettings.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
+new ConfigureFromConfigurationOptions<TokenConfigurations>(builder.Configuration.GetSection("TokenConfigurations")).Configure(tokenConfigurations);
+builder.Services.AddSingleton(tokenConfigurations);
+
+var signConfigurations = new SigningConfigurations();
+builder.Services.AddSingleton(signConfigurations);
 
 builder.Services.AddAuthentication(authOption =>
 {
