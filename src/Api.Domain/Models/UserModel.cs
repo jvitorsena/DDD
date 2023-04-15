@@ -1,31 +1,11 @@
+using Api.Domain.Models;
+
 namespace Domain.Models;
 
-public class UserModel
+public class UserModel : BaseModel
 {
-    private Guid _id;
     private string _name;
     private string _email;
-    private DateTime _createAt;
-    private DateTime _updateAt;
-
-    public DateTime UpdateAt
-    {
-        get => _updateAt;
-        set => _updateAt = value;
-    }
-
-    public Guid Id
-    {
-        get => _id;
-        set => _id = value;
-    }
-
-    public DateTime CreateAt
-    {
-        get => _createAt;
-        set => _createAt = value == null ? DateTime.UtcNow : value;
-    }
-
     public string Name
     {
         get => _name;

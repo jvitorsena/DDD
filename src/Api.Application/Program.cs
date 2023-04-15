@@ -12,6 +12,7 @@ using Api.Service.Services;
 using AutoMapper;
 using crosscutting.DependencyInjection;
 using crosscutting.Mappings;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 
@@ -75,7 +77,7 @@ IConfiguration AppSettings = new ConfigurationBuilder()
 
 #region [Dependency Injection]
 
-builder.Services.AddHostedService<ImplementBackgroundService>();
+// builder.Services.AddHostedService<ImplementBackgroundService>();
 builder.Services.AddConfig(builder.Configuration).AddMyDependencyGroup();
 
 #endregion
@@ -89,6 +91,7 @@ builder.Services.AddSingleton(tokenConfigurations);
 
 var signConfigurations = new SigningConfigurations();
 builder.Services.AddSingleton(signConfigurations);
+
 
 builder.Services.AddAuthentication(authOption =>
 {
@@ -106,7 +109,7 @@ builder.Services.AddAuthentication(authOption =>
 });
 builder.Services.AddAuthorization(auth =>
 {
-    auth.AddPolicy("Bearer" , new AuthorizationPolicyBuilder()
+    auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
         .RequireAuthenticatedUser().Build());
 });
